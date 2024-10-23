@@ -7,13 +7,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import project01am.Card.Card;
+import project01am.Card.CardValue;
+import project01am.Card.Suit;
+
 public class App {
 
     public static void main(String[] args) {
 
         // Task09();
 
-        Task10();
+        // Task10();
+
+        // Task11();
+
+        Task11a();
 
     }
 
@@ -91,6 +99,16 @@ public class App {
         while (userInput) {
             guess = console.readLine("\r\nGuess the next number is higher 'H' or lower 'L':");
 
+            int higher = 0;
+            int lower = 0;
+            for(int x = currentPos; x < (numberList.size() - 1); x++) {
+                if (numberList.get(x) < numberList.get(x - 1)) {
+                    lower++;
+                } else {
+                    higher++;
+                }
+            }
+
             String answer = "";
             String correct = "0";
             if (numberList.get(currentPos - 1) < numberList.get(currentPos)) 
@@ -110,10 +128,10 @@ public class App {
                     System.out.printf("\r\n%d", numberList.get(a));
                 }
                 else {
-                    System.out.printf("\t%d:%s", numberList.get(a), correctList.get(a));
+                    System.out.printf("    %d:%s", numberList.get(a), correctList.get(a));
                 }
-
             }
+            System.out.printf("    h:%d    l:%d", higher, lower);
 
             // program terminates/ends
             if (currentPos == 9) {
@@ -151,6 +169,26 @@ public class App {
             System.out.println(card);
         }
 
+    }
+
+    public static void Task11a() {
+        List<Card> deck = new ArrayList<>();
+
+        for(int i = 0; i < 13; i++) {
+            CardValue v = CardValue.values()[i];
+            for (int j = 0; j < 4; j++) {
+                Suit s = Suit.values()[j];
+                
+                Card c = new Card(s, v);
+                deck.add(c);
+            }
+        }
+
+        Collections.shuffle(deck);
+
+        for(Card card: deck) {
+            System.out.println(card.toString());
+        }
     }
 
 }
