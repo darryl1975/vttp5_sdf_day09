@@ -11,6 +11,13 @@ public class App {
 
     public static void main(String[] args) {
 
+        // Task09();
+
+        Task10();
+
+    }
+
+    public static void Task09() {
         int min = 111111;
         int max = 999999;
         Random random = new Random();
@@ -36,7 +43,7 @@ public class App {
             guessedNumbers.add(guessValue);
             Collections.sort(guessedNumbers);
 
-            if (guessValue > lowerBound) 
+            if (guessValue > lowerBound)
                 if (guessValue != randomNumber)
                     if (guessValue < randomNumber)
                         lowerBound = guessValue;
@@ -64,6 +71,86 @@ public class App {
             }
 
         }
+    }
+
+    public static void Task10() {
+        Random random = new Random();
+        List<Integer> numberList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            numberList.add(random.nextInt(1, 100));
+        }
+
+        Console console = System.console();
+        Boolean userInput = true;
+        String guess = "";
+        int currentPos = 1;
+        List<String> correctList = new ArrayList<>();
+
+        System.out.printf("\r\nFirst Number: %d\r\n", numberList.get(0));
+        correctList.add("-");
+        while (userInput) {
+            guess = console.readLine("\r\nGuess the next number is higher 'H' or lower 'L':");
+
+            String answer = "";
+            String correct = "0";
+            if (numberList.get(currentPos - 1) < numberList.get(currentPos)) 
+                answer = "h";
+            else 
+                answer = "l";
+
+            if (guess.trim().toLowerCase().equals(answer))
+                correct = "1";
+            else 
+                correct = "0";
+            correctList.add(correct);
+
+            // print out the results
+            for(int a = 0; a <= currentPos; a++) {
+                if (a == 0){ 
+                    System.out.printf("\r\n%d", numberList.get(a));
+                }
+                else {
+                    System.out.printf("\t%d:%s", numberList.get(a), correctList.get(a));
+                }
+
+            }
+
+            // program terminates/ends
+            if (currentPos == 9) {
+                userInput = false;
+            }
+
+            currentPos++;
+        }
+        System.out.println("\r\n");
+    }
+
+    public static void Task11() {
+        String[] suits = { "SPADE", "HEART", "CLUB", "DIAMOND" };
+        String[] ranks = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+        List<String> deck = new ArrayList<>();
+        // Collections
+        // Collections.shuffle(deck);
+
+        // 52 cards in a deck
+        int numberOfDeckCards = suits.length * ranks.length;
+        // String[] decks = new String[numberOfDeckCards];
+
+        // create the deck of 52 cards in sequence
+        for (int i = 0; i < suits.length; i++) {
+            for (int j = 0; j < ranks.length; j++) {
+                deck.add(suits[i] + " " + ranks[j]);
+            }
+        }
+
+        // shuffle
+        Collections.shuffle(deck);
+
+        // print the shuffled deck
+        for (String card : deck) {
+            System.out.println(card);
+        }
 
     }
+
 }
